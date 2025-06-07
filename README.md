@@ -38,7 +38,7 @@ A full-stack web application for managing personal budgets, built with Angular, 
 1. **Clone the repository**
 
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/ReynaldoQuintero/budget-tracker
    cd budget-tracker
    ```
 
