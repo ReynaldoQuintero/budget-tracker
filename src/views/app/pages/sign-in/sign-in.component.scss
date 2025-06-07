@@ -1,0 +1,24 @@
+@use "../../../assets/google/google.scss";
+.card-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 0;
+  text-align: center;
+}
+
+.login-card {
+  width: 50%;
+  min-width: 200px;
+}
+
+.login-button-container {
+  margin: 2em 0;
+}

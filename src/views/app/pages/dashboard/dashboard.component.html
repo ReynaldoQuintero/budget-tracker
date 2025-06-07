@@ -1,0 +1,209 @@
+<div class="dashboard-header">
+  <div class="month-selector">
+    <button mat-icon-button (click)="changeMonth(-1)">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span class="month-title" (click)="picker.open()" style="cursor:pointer;">
+      {{ dateTitle | date:'MMM yyyy' }}
+    </span>
+    <mat-datepicker #picker startView="multi-year" (monthSelected)="onMonthSelected($event, picker)" panelClass="month-picker" >
+    </mat-datepicker>
+    <input [matDatepicker]="picker" [(ngModel)]="dateTitle" [max]="maxDate" hidden />
+    <button mat-icon-button (click)="changeMonth(1)" [disabled]="isNextMonthDisabled">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+  <mat-card class="assigned-summary">
+    <mat-card-content class="assigned-summary-content">
+      <span class="assigned-amount">€0.00</span>
+      <span class="assigned-label">All Money Assigned</span>
+      <mat-icon>check_circle</mat-icon>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="dashboard-content">
+  <div class="category-table">
+    <div class="category-table-header">
+      <span class="category-header">
+        CATEGORY 
+        <button mat-icon-button (click)="openAddCategoryDialog($event)" class="inline-action-btn add-subcategory-btn">
+          <mat-icon>add</mat-icon>
+        </button></span>
+      <span class="assigned-header">ASSIGNED</span>
+      <span class="activity-header">ACTIVITY</span>
+      <span class="available-header">AVAILABLE</span>
+    </div>
+    @for (category of categories; track category.category_id) {
+      <div class="accordion-container">
+        <mat-accordion>
+          <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ category.category_name }}
+                <button mat-icon-button (click)="openAddSubcategoryDialog($event, category)" class="inline-action-btn add-subcategory-btn">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openEditCategoryDialog($event, category)" class="inline-action-btn">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteCategory($event, category)" class="inline-action-btn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            @for (sub of category.subCategories; track sub.sub_category_id) {
+              <div class="subcategory-row">
+                <span class="subcategory-name">
+                  <mat-checkbox></mat-checkbox>
+                  {{ sub.name }}
+                  <div class="sub-category-actions">
+                    <button mat-icon-button (click)="openEditSubcategoryDialog(category, sub)" class="inline-action-btn">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="deleteSubcategory(category, sub)" class="inline-action-btn">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </span>
+                <span class="subcategory-assigned">{{ sub.budgeted_amount | currency:'EUR' }}</span>
+                <span class="subcategory-activity">{{ sub.activity | currency:'EUR' }}</span>
+                <span class="subcategory-available">
+                  @if (sub.available_amount > 0) {
+                    <span class="available-pill">
+                      {{ sub.available_amount | currency:'EUR' }}
+                    </span>
+                  } @else {
+                    <span class="available-pill negative-available">
+                      {{ sub.available_amount | currency:'EUR' }}
+                    </span>
+                  }
+                </span>
+              </div>
+            }
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    }
+  </div>
+  <!-- <div class="dashboard-sidebar">
+    <mat-card>
+      <mat-card-title>June's Summary</mat-card-title>
+      <mat-card-content>
+        <div class="summary-row">
+          <span>Left Over from Last Month</span>
+          <span>€4,670.45</span>
+        </div>
+        <div class="summary-row">
+          <span>Assigned in June</span>
+          <span>€0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Activity</span>
+          <span>-€672.79</span>
+        </div>
+        <div class="summary-row">
+          <span>Available</span>
+          <span>€3,997.66</span>
+        </div>
+        <div class="summary-row">
+          <span>June's Targets</span>
+          <span>€0.00</span>
+        </div>
+        <button mat-stroked-button color="primary" class="income-btn">Enter your expected income</button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Auto-Assign</mat-card-title>
+      <mat-card-content>
+        <div class="summary-row">
+          <span>Underfunded</span>
+          <span>€0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Assigned Last Month</span>
+          <span>€0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Spent Last Month</span>
+          <span>€165.37</span>
+        </div>
+        <div class="summary-row">
+          <span>Average Assigned</span>
+          <span>€638.19</span>
+        </div>
+        <div class="summary-row">
+          <span>Average Spent</span>
+          <span>€740.27</span>
+        </div>
+        <button mat-stroked-button color="primary" class="reset-btn">Reset Available Amounts</button>
+        <button mat-stroked-button color="primary" class="reset-btn">Reset Assigned Amounts</button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Assigned in Future Months</mat-card-title>
+      <mat-card-content>
+        <div class="summary-row">
+          <span>July</span>
+          <span>€0.00</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div> -->
+</div>
+
+<ng-template #addSubcategoryDialog>
+  <div class="budget-app-dialog">
+    @if (editingSubCategory) {
+      <h3>Edit Subcategory</h3>
+    } @else {
+      <h3>Add Subcategory</h3>
+    }
+    <mat-form-field appearance="outline">
+      <mat-label>Subcategory Name</mat-label>
+      <input matInput [(ngModel)]="newName" (keydown.enter)="confirmSubcategory()" />
+    </mat-form-field>
+    <div class="dialog-actions">
+      <button mat-stroked-button color="primary" (click)="confirmSubcategory()">Ok</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addCategoryDialog>
+  <div class="budget-app-dialog">
+    @if (editingCategory) {
+      <h3>Edit Category</h3>
+    } @else {
+      <h3>Add Category</h3>
+    }
+    <mat-form-field appearance="outline">
+      <mat-label>Category Name</mat-label>
+      <input matInput [(ngModel)]="newName" (keydown.enter)="confirmCategory()" />
+    </mat-form-field>
+    <div class="dialog-actions">
+      <button mat-stroked-button color="primary" (click)="confirmCategory()">Ok</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #confirmDeleteDialog>
+  <div class="budget-app-dialog">
+    <h3>Confirm Delete</h3>
+    <p>
+      Are you sure you want to delete
+      @if (deleteContext?.type === 'category') {
+        <ng-container>
+          The category "<b>{{ deleteContext?.category?.category_name }}</b>"?
+        </ng-container>
+      } @else if (deleteContext?.type === 'subcategory') {
+        <ng-container>
+          the subcategory "<b>{{ deleteContext?.subCategory?.name }}</b>"?
+        </ng-container>
+      }
+    </p>
+    <div class="dialog-actions">
+      <button mat-stroked-button color="warn" (click)="confirmDelete()">Delete</button>
+      <button mat-stroked-button (click)="cancelDelete()">Cancel</button>
+    </div>
+  </div>
+</ng-template>
