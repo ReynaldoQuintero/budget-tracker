@@ -59,7 +59,7 @@
     padding: 0.5em;
     line-height: 3em;
     .category-header { flex: 3; display: flex; align-items: center;}
-    .assigned-header, .activity-header, .available-header { display: flex; align-items: center;flex: 1; text-align: right; }
+    .assigned-header, .activity-header, .available-header { display: flex; align-items: center;flex: 1; text-align: left; }
   }
 
   .inline-action-btn {
@@ -82,7 +82,7 @@
   border-bottom: 1px solid;
   padding: 0.5em 0;
   .subcategory-name { flex: 3; display: flex; align-items: center; gap: 0.5em; }
-  .subcategory-assigned, .subcategory-activity, .subcategory-available { flex: 1; text-align: right; }
+  .subcategory-assigned, .subcategory-activity, .subcategory-available { flex: 1; text-align: left; }
   .available-pill {
     background: #d6f5d6;
     color: #1a7f37;

@@ -1,0 +1,134 @@
+<div class="account-header">
+  <div class="account-title-row">
+    <span class="account-title">BNP</span>
+    <span class="account-type">Checking</span>
+  </div>
+  <div class="account-summary-row">
+    <span class="summary-balance cleared">€3,997.66<br><small>Cleared Balance</small></span>
+    <span class="summary-balance uncleared">+ €0.00<br><small>Uncleared Balance</small></span>
+    <span class="summary-balance working">= €3,997.66<br><small>Working Balance</small></span>
+  </div>
+  <div class="account-actions-row">
+    <button mat-flat-button color="primary" (click)="showAddTransactionRow()">
+      <mat-icon>add</mat-icon> Add Transaction
+    </button>
+    <span></span>
+    <mat-form-field appearance="outline">
+      <mat-label>Search BNP</mat-label>
+      <input matInput placeholder="Search BNP" [(ngModel)]="filter" (keydown.enter)="applyFilter($event)" />
+      <button mat-icon-button matSuffix (click)="applyFilter($event)"><mat-icon>search</mat-icon></button>
+    </mat-form-field>
+  </div>
+</div>
+
+<mat-card class="transactions-table-card">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+
+    <!-- Select Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let tx">
+        <mat-checkbox></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE</th>
+      <td mat-cell *matCellDef="let tx">
+        @if(!tx.editing) {
+            {{ tx.date | date:'dd/MM/yyyy' }}
+        } @else {
+            <input matInput [matDatepicker]="picker" [(ngModel)]="tx.date" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        }
+      </td>
+    </ng-container>
+
+    <!-- Payee Column -->
+    <ng-container matColumnDef="payee">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>PAYEE</th>
+      <td mat-cell *matCellDef="let tx">
+        @if(!tx.editing) {
+          {{ tx.payee }}
+        } @else {
+          <input matInput [(ngModel)]="tx.payee" />
+        }
+      </td>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>CATEGORY</th>
+      <td mat-cell *matCellDef="let tx">
+        @if(!tx.editing) {
+          {{ tx.category }}
+        } @else {
+          <input matInput [(ngModel)]="tx.category" />
+        }
+      </td>
+    </ng-container>
+
+    <!-- Memo Column -->
+    <ng-container matColumnDef="memo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>MEMO</th>
+      <td mat-cell *matCellDef="let tx">
+        @if(!tx.editing) {
+          {{ tx.memo || '' }}
+        } @else {
+          <input matInput [(ngModel)]="tx.memo" />
+        }
+      </td>
+    </ng-container>
+
+    <!-- Outflow Column -->
+    <ng-container matColumnDef="outflow">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>OUTFLOW</th>
+      <td mat-cell *matCellDef="let tx">
+        @if(!tx.editing) {
+          <span class="outflow-cell">{{ tx.outflow ? (tx.outflow | currency:'EUR') : '' }}</span>
+        } @else {
+          <input matInput type="number" [(ngModel)]="tx.outflow"
+            (input)="tx.inflow = null" placeholder="0.00" />
+        }
+      </td>
+    </ng-container>
+
+    <!-- Inflow Column -->
+    <ng-container matColumnDef="inflow">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>INFLOW</th>
+      <td mat-cell *matCellDef="let tx">
+        @if(!tx.editing) {
+          <span class="inflow-cell">{{ tx.inflow ? (tx.inflow | currency:'EUR') : '' }}</span>
+        } @else {
+          <input matInput type="number" [(ngModel)]="tx.inflow"
+            (input)="tx.outflow = null" placeholder="0.00" />
+        }
+      </td>
+    </ng-container>
+
+    <!-- Actions Column (for add row only) -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tx">
+        @if(tx.editing) {
+          <button mat-icon-button color="primary" (click)="addTransaction()">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="cancelAddTransaction()">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </td>
+    </ng-container>
+
+    <!-- Header Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <!-- Data Rows -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>

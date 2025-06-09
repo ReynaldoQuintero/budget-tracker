@@ -27,14 +27,6 @@ html {
   body {
     background-color: my-theme.$primary-background-dark;
   }
-
-  :root {
-    @include mat.expansion-overrides(
-      (
-        container-background-color: my-theme.$secondary-background-dark,
-      )
-    );
-  }
 }
 
 html,

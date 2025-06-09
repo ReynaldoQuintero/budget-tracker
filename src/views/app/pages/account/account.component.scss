@@ -1,0 +1,126 @@
+.account-header {
+  margin-bottom: 24px;
+  .account-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    .account-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .account-type {
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-left: 8px;
+    }
+    .account-reconciled {
+      font-size: 0.95rem;
+      opacity: 0.6;
+      margin-left: 16px;
+    }
+    .reconcile-btn {
+      margin-left: auto;
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+
+  .account-summary-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    margin: 16px 0 8px 0;
+    .summary-balance {
+      font-size: 1.2rem;
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      small {
+        font-size: 0.85rem;
+        opacity: 0.7;
+        font-weight: 400;
+      }
+    }
+    .cleared, .uncleared, .working {
+      min-width: 120px;
+    }
+  }
+
+  .account-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    button[mat-flat-button], button[mat-stroked-button] {
+      min-width: 150px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    button[mat-icon-button] {
+      min-width: 36px;
+    }
+    mat-form-field {
+      margin-left: auto;
+      min-width: 200px;
+    }
+  }
+}
+
+.transactions-table-card {
+  padding: 0;
+  table.mat-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+      padding: 8px 12px;
+      font-size: 1rem;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    th.mat-header-cell {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    td.mat-cell, td.mat-footer-cell {
+      font-size: 1rem;
+    }
+    .outflow-cell, .inflow-cell {
+      text-align: right;
+      font-weight: 500;
+      display: block;
+    }
+    .table-input {
+      width: 120px;
+      min-width: 100px;
+      margin: 0;
+    }
+    td.mat-footer-cell {
+      background: rgba(0,0,0,0.03);
+      border-bottom: none;
+    }
+    tr.mat-footer-row {
+      border-top: 1px solid #e0e0e0;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .transactions-table-card table.mat-table,
+  .transactions-table-card th.mat-header-cell,
+  .transactions-table-card td.mat-cell,
+  .transactions-table-card td.mat-footer-cell {
+    font-size: 0.95rem;
+    padding: 6px 4px;
+  }
+}
