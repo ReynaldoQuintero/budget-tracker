@@ -1,0 +1,60 @@
+<mat-sidenav
+  mode="side"
+  opened
+  class="side-navbar"
+  [style.width]="'20vw'"
+>
+  <div class="navbar-header">
+    <div>
+        <button mat-fab extended="true" class="navbar-logo-title" [matMenuTriggerFor]="userMenu">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <div class="navbar-title-container">
+                <div>
+                    <h1 class="navbar-title">My Budget</h1>
+                    <div class="navbar-email">reynaldoquinterom&#64;gmail.com</div>
+                </div>
+                <mat-icon>arrow_drop_down</mat-icon>
+            </div>
+        </button>
+        <mat-menu #userMenu="matMenu">
+            <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Log out</span>
+            </button>
+        </mat-menu>
+    </div>
+  </div>
+  <mat-nav-list>
+    <a mat-list-item class="navbar-btn"
+       [routerLink]="['/dashboard']"
+       [activated]="isLinkActive(['/dashboard'])">
+      <mat-icon matListIcon>view_list</mat-icon>
+      <span>Plan</span>
+    </a>
+    <div class="navbar-section-title">
+      <mat-icon>account_balance</mat-icon>
+      <span>All Accounts</span>
+    </div>
+    <mat-nav-list class="accounts-list">
+      <div class="account-group">
+        <div class="account-group-header">
+          <span class="account-group-title">Balance</span>
+          <span class="account-group-balance">{{ totalBalance | currency:'EUR' }}</span>
+        </div>
+        @for (account of accounts; track account.name) {
+            <a
+               mat-list-item class="navbar-btn account-item"
+               [routerLink]="['/account']"
+               [activated]="isLinkActive(['/account'])">
+              <span class="account-name">{{ account.name }}</span>
+              <span class="account-balance">&nbsp;{{ account.balance | currency:'EUR' }}</span>
+            </a>
+        }
+      </div>
+    </mat-nav-list>
+    <button mat-stroked-button color="primary" class="add-account-btn">
+      <mat-icon>add</mat-icon>
+      Add Account
+    </button>
+  </mat-nav-list>
+</mat-sidenav>

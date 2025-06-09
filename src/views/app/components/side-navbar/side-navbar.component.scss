@@ -1,0 +1,104 @@
+.side-navbar {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar-header {
+  padding: 1.2rem 1.2rem 0.5rem 1.2rem;
+}
+
+.navbar-title {
+    margin: 0;
+}
+
+.navbar-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  justify-content: left;
+}
+
+.navbar-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.navbar-dropdown {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.navbar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 1.2rem;
+}
+
+.navbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  cursor: pointer!important;
+  transition: background 0.2s;
+}
+
+.navbar-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.accounts-list {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.account-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.account-group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.account-group-balance {
+  margin-left: auto;
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.2rem;
+}
+
+
+.add-account-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  margin-top: 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
