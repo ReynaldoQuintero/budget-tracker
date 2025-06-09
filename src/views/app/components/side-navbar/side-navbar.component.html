@@ -6,7 +6,7 @@
 >
   <div class="navbar-header">
     <div>
-        <button mat-fab extended="true" class="navbar-logo-title" [matMenuTriggerFor]="userMenu">
+        <button mat-button color="subtle" extended="true" class="navbar-logo-title" [matMenuTriggerFor]="userMenu">
             <mat-icon>account_balance_wallet</mat-icon>
             <div class="navbar-title-container">
                 <div>
@@ -28,8 +28,10 @@
     <a mat-list-item class="navbar-btn"
        [routerLink]="['/dashboard']"
        [activated]="isLinkActive(['/dashboard'])">
-      <mat-icon matListIcon>view_list</mat-icon>
-      <span>Plan</span>
+       <div class="navbar-item-content">
+           <mat-icon matListIcon>view_list</mat-icon>
+           <span>Plan</span>
+       </div>
     </a>
     <div class="navbar-section-title">
       <mat-icon>account_balance</mat-icon>

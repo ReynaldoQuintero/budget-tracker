@@ -1,9 +1,18 @@
+@use "@angular/material" as mat;
+@use "../../../assets/themes/theme-budget.scss" as my-theme;
+@use "sass:map";
+
 .side-navbar {
   height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 0;
   box-sizing: border-box;
+}
+
+.mat-subtle {
+    background: transparent;
+    color: map.get(my-theme.$primary-palette, 100)!important;
 }
 
 .navbar-header {
@@ -19,12 +28,23 @@
   align-items: center;
   gap: 0.7rem;
   justify-content: left;
+  margin: auto;
+  height: auto;
+  padding-top: 2px!important;
+  padding-bottom: 2px!important;;
 }
 
 .navbar-title-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
+    margin: auto;
+}
+
+.navbar-item-content {
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
 }
 
